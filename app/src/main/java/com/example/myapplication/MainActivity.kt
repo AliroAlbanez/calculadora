@@ -1,123 +1,107 @@
-package com.example.myapplication;
+package com.example.myapplication
 
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
-import androidx.appcompat.app.AppCompatActivity;
+class MainActivity : AppCompatActivity() {
+    var bSumar: Button? = null
+    var bRestar: Button? = null
+    var bMulti: Button? = null
+    var bDivi: Button? = null
+    var num1: EditText? = null
+    var num2: EditText? = null
+    var total: TextView? = null
+    fun sumar(a: Int, b: Int): Int {
+        var suma = 0
+        suma = a + b
+        return suma
+    }
 
-public class MainActivity extends AppCompatActivity {
-   Button bSumar;
-   Button bRestar;
-   Button bMulti;
-   Button bDivi;
-   EditText num1;
-   EditText num2;
-   TextView total;
-   
-    public int sumar(int a, int b){
-        int suma=0;
-        suma=a+b;
-        return suma;
+    fun restar(a: Int, b: Int): Int {
+        var resta = 0
+        resta = a - b
+        return resta
     }
-    public int restar(int a,int b){
-        int resta=0;
-        resta=a-b;
-        return resta;
+
+    fun multi(a: Int, b: Int): Int {
+        var res = 0
+        res = a * b
+        return res
     }
-    public int multi(int a,int b){
-        int res=0;
-        res=a*b;
-        return res;
-    }
-    public String divid(int a,int b){
-        String res="0";
-        if(b!=0){
-            res=""+a/b;
-            return res;}else {
-            return "Error";
+
+    fun divid(a: Int, b: Int): String {
+        var res = "0"
+        return if (b != 0) {
+            res = "" + a / b
+            res
+        } else {
+            "Error"
         }
-
     }
-   @Override
-      protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         //objetos para cada uno de los del xml
-        total=(TextView) findViewById(R.id.etiResultado);
-        num1=(EditText) findViewById(R.id.primerNum);
-        num2=(EditText) findViewById(R.id.segundoNum);
-        bSumar=(Button) findViewById(R.id.botonSumar);
-        bRestar=(Button) findViewById(R.id.botonRestar);
-        bMulti=(Button) findViewById(R.id.botonMulti);
-        bDivi=(Button) findViewById(R.id.botonDivi);
+        total = findViewById<View>(R.id.etiResultado) as TextView
+        num1 = findViewById<View>(R.id.primerNum) as EditText
+        num2 = findViewById<View>(R.id.segundoNum) as EditText
+        bSumar = findViewById<View>(R.id.botonSumar) as Button
+        bRestar = findViewById<View>(R.id.botonRestar) as Button
+        bMulti = findViewById<View>(R.id.botonMulti) as Button
+        bDivi = findViewById<View>(R.id.botonDivi) as Button
 
         //variables para el mensaje toast a utilizar
-        Context context =getApplicationContext();
-        CharSequence text="Falta un número";
-        int duracion = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context,text,duracion);
+        val context = applicationContext
+        val text: CharSequence = "Falta un número"
+        val duracion = Toast.LENGTH_SHORT
+        val toast = Toast.makeText(context, text, duracion)
 
         //listeners para los botones
-        bSumar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //comprobacion
-                if(num1.getText().toString().equals("") || num2.getText().toString().equals("")){
-                    //mensaje al ser vacio algun numero
-                    toast.show();
-                }else{
-                    //edicion del resultado segun los valores dados
-                    total.setText(""+sumar(Integer.parseInt(num1.getText().toString()),Integer.parseInt(num2.getText().toString())));
-                }
-
+        bSumar!!.setOnClickListener {
+            //comprobacion
+            if (num1!!.text.toString() == "" || num2!!.text.toString() == "") {
+                //mensaje al ser vacio algun numero
+                toast.show()
+            } else {
+                //edicion del resultado segun los valores dados
+                total!!.text = "" + sumar(num1!!.text.toString().toInt(), num2!!.text.toString().toInt())
             }
-        });
-
-        bRestar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //comprobacion
-                if(num1.getText().toString().equals("") || num2.getText().toString().equals("")){
-                    //mensaje al ser vacio algun numero
-                    toast.show();
-                }else{
-                    //edicion del resultado segun los valores dados
-                    total.setText(""+restar(Integer.parseInt(num1.getText().toString()),Integer.parseInt(num2.getText().toString())));
-                }
+        }
+        bRestar!!.setOnClickListener {
+            //comprobacion
+            if (num1!!.text.toString() == "" || num2!!.text.toString() == "") {
+                //mensaje al ser vacio algun numero
+                toast.show()
+            } else {
+                //edicion del resultado segun los valores dados
+                total!!.text = "" + restar(num1!!.text.toString().toInt(), num2!!.text.toString().toInt())
             }
-        });
-
-        bMulti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //comprobacion
-                if(num1.getText().toString().equals("") || num2.getText().toString().equals("")){
-                    //mensaje al ser vacio algun numero
-                    toast.show();
-                }else{
-                    //edicion del resultado segun los valores dados
-                    total.setText(""+multi(Integer.parseInt(num1.getText().toString()),Integer.parseInt(num2.getText().toString())));
-                }
+        }
+        bMulti!!.setOnClickListener {
+            //comprobacion
+            if (num1!!.text.toString() == "" || num2!!.text.toString() == "") {
+                //mensaje al ser vacio algun numero
+                toast.show()
+            } else {
+                //edicion del resultado segun los valores dados
+                total!!.text = "" + multi(num1!!.text.toString().toInt(), num2!!.text.toString().toInt())
             }
-        });
-
-        bDivi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //comprobacion
-                if(num1.getText().toString().equals("") || num2.getText().toString().equals("")){
-                    //mensaje al ser vacio algun numero
-                    toast.show();
-                }else{
-                    //edicion del resultado segun los valores dados
-                    total.setText(""+divid(Integer.parseInt(num1.getText().toString()),Integer.parseInt(num2.getText().toString())));
-                }
+        }
+        bDivi!!.setOnClickListener {
+            //comprobacion
+            if (num1!!.text.toString() == "" || num2!!.text.toString() == "") {
+                //mensaje al ser vacio algun numero
+                toast.show()
+            } else {
+                //edicion del resultado segun los valores dados
+                total!!.text = "" + divid(num1!!.text.toString().toInt(), num2!!.text.toString().toInt())
             }
-        });
+        }
     }
 }
